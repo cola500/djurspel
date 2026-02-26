@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Experiment 013: Djur-Memory
 
-## Getting Started
+## Hypotes
 
-First, run the development server:
+Kan vi bygga ett tillgangligt memory-spel optimerat for barn med synnedsattning, med hog kontrast, stora touch targets och ljudfeedback?
+
+## Kora projektet
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Oppna pa telefon (samma natverk) eller anvand mobil-emulering i webblasar-devtools.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Designbeslut
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Tillganglighet
+- **Mork bakgrund** (#030712) med starka farger for maximal kontrast
+- **Stora touch targets** - korten fyller skarmen, minst 80x80px
+- **Trippla ledtradar**: farg + form + ljud for varje djur
+- **1.5s visningstid** for uppvanda kort (langre an standard 1s)
+- **Inga sma texter** - helt visuellt grannsnitt
 
-## Learn More
+### Teknik
+- **SVG-silhuetter** direkt i koden - enkla, feta former som ar latta att kanna igen
+- **Web Audio API** for syntetiserade djurljud - inga externa filer behovs
+- **CSS 3D transforms** for realistisk kortvandningsanimation
+- **Next.js med Tailwind** for snabb utveckling
 
-To learn more about Next.js, take a look at the following resources:
+### Ljuddesign
+Djurljud syntetiseras med oscillatorer:
+- Katt: fallande sinusvag (mjau-liknande)
+- Hund: kort fyrkantvag (skall)
+- Ko: lag sagtandsvag (mu)
+- Etc.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Framganskriterier
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [x] Hog kontrast - starka farger mot mork bakgrund
+- [x] Stora touch targets for mobilanvandning
+- [x] Ljud som feedbacksystem
+- [x] Valbar svarighetsgrad (4/6/8 par)
+- [x] Flip-animation och glow-effekt
+- [x] Firandeanimation vid vinst
+- [x] Responsiv design for mobiltelefon
