@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Djur-Memory',
-  description: 'Memory-spel med djur',
+  title: 'Djurspel',
+  description: 'Roliga djurspel for barn',
 };
 
 export const viewport: Viewport = {
