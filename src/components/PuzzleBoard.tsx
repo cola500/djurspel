@@ -182,7 +182,7 @@ export function PuzzleBoard() {
                 onClick={goToNextAnimal}
                 className="px-10 py-5 bg-green-500 text-gray-950 rounded-2xl text-3xl font-bold active:scale-95 transition-transform shadow-[0_0_30px_rgba(74,222,128,0.5)]"
               >
-                {animalIndex < PUZZLE_ANIMALS.length - 1 ? 'Nasta djur!' : 'Borja om!'}
+                {animalIndex < PUZZLE_ANIMALS.length - 1 ? 'Nästa djur!' : 'Börja om!'}
               </button>
             </div>
           </div>

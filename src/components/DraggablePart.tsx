@@ -78,7 +78,7 @@ export function DraggablePart({ part, color, placed, containerRef, onDrop }: Dra
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
-      className={`w-20 h-20 cursor-grab touch-none select-none ${
+      className={`w-28 h-28 cursor-grab touch-none select-none ${
         dragging ? 'z-50 scale-110' : ''
       } ${shaking ? 'animate-[shake_0.3s_ease-in-out]' : ''}`}
       style={{
@@ -87,7 +87,7 @@ export function DraggablePart({ part, color, placed, containerRef, onDrop }: Dra
         filter: dragging ? 'drop-shadow(0 4px 12px rgba(0,0,0,0.5))' : 'none',
       }}
     >
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+      <svg viewBox={part.previewViewBox} xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
         <PartSvg color={color} />
       </svg>
     </div>

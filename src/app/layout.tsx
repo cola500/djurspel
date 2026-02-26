@@ -3,7 +3,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Djurspel',
-  description: 'Roliga djurspel for barn',
+  description: 'Roliga djurspel för barn',
 };
 
 export const viewport: Viewport = {

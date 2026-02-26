@@ -9,6 +9,7 @@ export interface BodyPart {
   id: string;
   label: string;
   slotPosition: Position;
+  previewViewBox: string;
 }
 
 export interface PuzzleAnimal {
