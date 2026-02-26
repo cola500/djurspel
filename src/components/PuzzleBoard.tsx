@@ -162,15 +162,13 @@ export function PuzzleBoard() {
 
       {/* Win overlay */}
       {puzzleComplete && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-          <div className="text-center">
+        <div className="fixed inset-0 bg-black/70 flex flex-col items-center justify-center gap-8 z-50">
+          <div className="flex gap-2">
             {[...Array(5)].map((_, i) => (
               <div
                 key={i}
-                className="absolute text-6xl animate-bounce"
+                className="text-6xl animate-bounce"
                 style={{
-                  left: `${30 + i * 15}%`,
-                  top: '25%',
                   animationDelay: `${i * 0.2}s`,
                   animationDuration: '1s',
                 }}
@@ -178,15 +176,13 @@ export function PuzzleBoard() {
                 &#11088;
               </div>
             ))}
-            <div className="mt-24">
-              <button
-                onClick={goToNextAnimal}
-                className="px-10 py-5 bg-green-500 text-gray-950 rounded-2xl text-3xl font-bold active:scale-95 transition-transform shadow-[0_0_30px_rgba(74,222,128,0.5)]"
-              >
-                {animalIndex < animalOrder.length - 1 ? 'Nästa djur!' : 'Börja om!'}
-              </button>
-            </div>
           </div>
+          <button
+            onClick={goToNextAnimal}
+            className="px-10 py-5 bg-green-500 text-gray-950 rounded-2xl text-3xl font-bold active:scale-95 transition-transform shadow-[0_0_30px_rgba(74,222,128,0.5)]"
+          >
+            {animalIndex < animalOrder.length - 1 ? 'Nästa djur!' : 'Börja om!'}
+          </button>
         </div>
       )}
     </div>
