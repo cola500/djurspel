@@ -1,13 +1,14 @@
 'use client';
 
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { PlacedPart, Position, PuzzleAnimalType } from '@/lib/puzzle-types';
+import { PlacedPart, Position, PuzzleState } from '@/lib/puzzle-types';
 import { PUZZLE_ANIMALS } from '@/lib/puzzle-animals';
 import { checkPlacement, isComplete, initPlacedParts, shuffleArray } from '@/lib/puzzle-logic';
 import { playAnimalSound, playSnapSound, playErrorSound, playWinSound, initAudio } from '@/lib/sounds';
 import { BODY_COMPONENTS, PART_COMPONENTS } from './animals-puzzle';
 import { DropZone } from './DropZone';
 import { DraggablePart } from './DraggablePart';
+import { CompletedAnimalView } from './CompletedAnimalView';
 
 export function PuzzleBoard() {
   const [animalOrder] = useState(() => shuffleArray(PUZZLE_ANIMALS));
@@ -18,7 +19,7 @@ export function PuzzleBoard() {
   const [shuffledPartIds, setShuffledPartIds] = useState<string[]>(() =>
     shuffleArray(animalOrder[0].parts.map(p => p.id))
   );
-  const [puzzleComplete, setPuzzleComplete] = useState(false);
+  const [puzzleState, setPuzzleState] = useState<PuzzleState>('playing');
   const [mounted, setMounted] = useState(false);
   const [audioInit, setAudioInit] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -58,7 +59,7 @@ export function PuzzleBoard() {
           setTimeout(() => {
             playAnimalSound(animal.type);
             setTimeout(() => playWinSound(), 600);
-            setPuzzleComplete(true);
+            setPuzzleState('complete');
           }, 300);
         }
         return updated;
@@ -76,7 +77,7 @@ export function PuzzleBoard() {
     setAnimalIndex(nextIndex);
     setPlacedParts(initPlacedParts(nextAnimal));
     setShuffledPartIds(shuffleArray(nextAnimal.parts.map(p => p.id)));
-    setPuzzleComplete(false);
+    setPuzzleState('playing');
   }, [animalIndex, animalOrder]);
 
   if (!mounted) {
@@ -160,30 +161,13 @@ export function PuzzleBoard() {
         ))}
       </div>
 
-      {/* Win overlay */}
-      {puzzleComplete && (
-        <div className="fixed inset-0 bg-black/70 flex flex-col items-center justify-center gap-8 z-50">
-          <div className="flex gap-2">
-            {[...Array(5)].map((_, i) => (
-              <div
-                key={i}
-                className="text-6xl animate-bounce"
-                style={{
-                  animationDelay: `${i * 0.2}s`,
-                  animationDuration: '1s',
-                }}
-              >
-                &#11088;
-              </div>
-            ))}
-          </div>
-          <button
-            onClick={goToNextAnimal}
-            className="px-10 py-5 bg-green-500 text-gray-950 rounded-2xl text-3xl font-bold active:scale-95 transition-transform shadow-[0_0_30px_rgba(74,222,128,0.5)]"
-          >
-            {animalIndex < animalOrder.length - 1 ? 'Nästa djur!' : 'Börja om!'}
-          </button>
-        </div>
+      {/* Completed animal view */}
+      {puzzleState === 'complete' && (
+        <CompletedAnimalView
+          animal={animal}
+          isLast={animalIndex >= animalOrder.length - 1}
+          onNext={goToNextAnimal}
+        />
       )}
     </div>
   );
