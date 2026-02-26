@@ -10,12 +10,13 @@ import { DropZone } from './DropZone';
 import { DraggablePart } from './DraggablePart';
 
 export function PuzzleBoard() {
+  const [animalOrder] = useState(() => shuffleArray(PUZZLE_ANIMALS));
   const [animalIndex, setAnimalIndex] = useState(0);
   const [placedParts, setPlacedParts] = useState<PlacedPart[]>(() =>
-    initPlacedParts(PUZZLE_ANIMALS[0])
+    initPlacedParts(animalOrder[0])
   );
   const [shuffledPartIds, setShuffledPartIds] = useState<string[]>(() =>
-    shuffleArray(PUZZLE_ANIMALS[0].parts.map(p => p.id))
+    shuffleArray(animalOrder[0].parts.map(p => p.id))
   );
   const [puzzleComplete, setPuzzleComplete] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -26,7 +27,7 @@ export function PuzzleBoard() {
     setMounted(true);
   }, []);
 
-  const animal = PUZZLE_ANIMALS[animalIndex];
+  const animal = animalOrder[animalIndex];
   const BodySvg = BODY_COMPONENTS[animal.type];
 
   const ensureAudio = useCallback(() => {
@@ -55,7 +56,7 @@ export function PuzzleBoard() {
         );
         if (isComplete(updated)) {
           setTimeout(() => {
-            playAnimalSound(animal.type as PuzzleAnimalType);
+            playAnimalSound(animal.type);
             setTimeout(() => playWinSound(), 600);
             setPuzzleComplete(true);
           }, 300);
@@ -70,13 +71,13 @@ export function PuzzleBoard() {
   }, [animal, ensureAudio]);
 
   const goToNextAnimal = useCallback(() => {
-    const nextIndex = (animalIndex + 1) % PUZZLE_ANIMALS.length;
-    const nextAnimal = PUZZLE_ANIMALS[nextIndex];
+    const nextIndex = (animalIndex + 1) % animalOrder.length;
+    const nextAnimal = animalOrder[nextIndex];
     setAnimalIndex(nextIndex);
     setPlacedParts(initPlacedParts(nextAnimal));
     setShuffledPartIds(shuffleArray(nextAnimal.parts.map(p => p.id)));
     setPuzzleComplete(false);
-  }, [animalIndex]);
+  }, [animalIndex, animalOrder]);
 
   if (!mounted) {
     return (
@@ -145,7 +146,7 @@ export function PuzzleBoard() {
 
       {/* Progress dots */}
       <div className="flex gap-2 mt-6">
-        {PUZZLE_ANIMALS.map((a, i) => (
+        {animalOrder.map((a, i) => (
           <div
             key={a.type}
             className={`w-4 h-4 rounded-full transition-colors ${
@@ -182,7 +183,7 @@ export function PuzzleBoard() {
                 onClick={goToNextAnimal}
                 className="px-10 py-5 bg-green-500 text-gray-950 rounded-2xl text-3xl font-bold active:scale-95 transition-transform shadow-[0_0_30px_rgba(74,222,128,0.5)]"
               >
-                {animalIndex < PUZZLE_ANIMALS.length - 1 ? 'Nästa djur!' : 'Börja om!'}
+                {animalIndex < animalOrder.length - 1 ? 'Nästa djur!' : 'Börja om!'}
               </button>
             </div>
           </div>

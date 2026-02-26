@@ -1,4 +1,4 @@
-export type PuzzleAnimalType = 'cat' | 'dog' | 'cow' | 'bird';
+export type PuzzleAnimalType = 'cat' | 'dog' | 'cow' | 'bird' | 'trex' | 'triceratops';
 
 export interface Position {
   x: number;

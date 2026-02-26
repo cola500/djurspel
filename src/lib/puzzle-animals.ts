@@ -41,4 +41,24 @@ export const PUZZLE_ANIMALS: PuzzleAnimal[] = [
       { id: 'bird-beak', label: 'Näbb', slotPosition: { x: 62, y: 28 }, previewViewBox: '44 28 30 20' },
     ],
   },
+  {
+    type: 'trex',
+    label: 'T-Rex',
+    color: '#10B981',
+    parts: [
+      { id: 'trex-teeth', label: 'Tänder', slotPosition: { x: 55, y: 30 }, previewViewBox: '44 22 30 24' },
+      { id: 'trex-left-arm', label: 'Vänster arm', slotPosition: { x: 32, y: 48 }, previewViewBox: '18 38 22 24' },
+      { id: 'trex-right-arm', label: 'Höger arm', slotPosition: { x: 58, y: 48 }, previewViewBox: '50 38 22 24' },
+    ],
+  },
+  {
+    type: 'triceratops',
+    label: 'Triceratops',
+    color: '#8B5CF6',
+    parts: [
+      { id: 'tric-frill', label: 'Nacksköld', slotPosition: { x: 45, y: 12 }, previewViewBox: '18 -4 54 30' },
+      { id: 'tric-horn', label: 'Horn', slotPosition: { x: 45, y: 28 }, previewViewBox: '30 10 30 28' },
+      { id: 'tric-tail', label: 'Svans', slotPosition: { x: 85, y: 55 }, previewViewBox: '64 30 34 40' },
+    ],
+  },
 ];
