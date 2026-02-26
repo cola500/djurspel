@@ -30,6 +30,20 @@ const GAMES = [
       </svg>
     ),
   },
+  {
+    href: '/which-is-missing',
+    label: 'Vilken saknas?',
+    color: 'from-purple-400 to-violet-500',
+    icon: (
+      <svg viewBox="0 0 100 100" className="w-full h-full">
+        {/* Three animals, one with question mark */}
+        <circle cx="25" cy="40" r="18" fill="#A855F7" />
+        <circle cx="75" cy="40" r="18" fill="#A855F7" />
+        <circle cx="50" cy="75" r="18" fill="none" stroke="white" strokeWidth="3" strokeDasharray="6 4" />
+        <text x="50" y="82" textAnchor="middle" fontSize="20" fill="white" fontWeight="bold">?</text>
+      </svg>
+    ),
+  },
 ];
 
 export default function HomePage() {
