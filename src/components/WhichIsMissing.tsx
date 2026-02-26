@@ -59,7 +59,7 @@ export function WhichIsMissing() {
     setCurrentAnimals(animals);
     setMissingAnimal(animals[missingIndex]);
     setSelectedAnswer(null);
-    setCountdown(3);
+    setCountdown(6);
     setPhase('memorize');
   }, []);
 
