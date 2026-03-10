@@ -29,6 +29,8 @@ const ANIMAL_SOUNDS: Record<string, SoundConfig> = {
   frog:         { frequencies: [200, 250, 200], duration: 0.2, type: 'square' },
   fish:         { frequencies: [600, 800, 1000], duration: 0.2, type: 'sine' },
   lion:         { frequencies: [150, 130, 110, 100], duration: 0.6, type: 'sawtooth' },
+  pig:          { frequencies: [300, 350, 400, 300], duration: 0.4, type: 'square', ramp: true },
+  owl:          { frequencies: [500, 400, 500, 600, 400], duration: 0.6, type: 'sine', ramp: true },
   trex:         { frequencies: [100, 80, 60, 50], duration: 0.8, type: 'sawtooth', ramp: true },
   triceratops:  { frequencies: [120, 100, 80, 100], duration: 0.6, type: 'square', ramp: true },
 };

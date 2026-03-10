@@ -7,6 +7,8 @@ import { BirdSvg } from './BirdSvg';
 import { FrogSvg } from './FrogSvg';
 import { FishSvg } from './FishSvg';
 import { LionSvg } from './LionSvg';
+import { PigSvg } from './PigSvg';
+import { OwlSvg } from './OwlSvg';
 
 export const AnimalSvgMap: Record<AnimalType, React.FC<{ color: string }>> = {
   cat: CatSvg,
@@ -17,4 +19,6 @@ export const AnimalSvgMap: Record<AnimalType, React.FC<{ color: string }>> = {
   frog: FrogSvg,
   fish: FishSvg,
   lion: LionSvg,
+  pig: PigSvg,
+  owl: OwlSvg,
 };

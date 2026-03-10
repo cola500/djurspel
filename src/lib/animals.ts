@@ -15,4 +15,6 @@ export const ANIMALS: AnimalConfig[] = [
   { type: 'frog', color: '#84CC16', label: 'Groda' },
   { type: 'fish', color: '#06B6D4', label: 'Fisk' },
   { type: 'lion', color: '#EAB308', label: 'Lejon' },
+  { type: 'pig', color: '#F9A8D4', label: 'Gris' },
+  { type: 'owl', color: '#8B5CF6', label: 'Uggla' },
 ];

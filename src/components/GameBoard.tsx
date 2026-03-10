@@ -10,6 +10,7 @@ const GRID_COLS: Record<PairCount, string> = {
   4: 'grid-cols-2',
   6: 'grid-cols-3',
   8: 'grid-cols-4',
+  10: 'grid-cols-4',
 };
 
 export function GameBoard() {
@@ -121,7 +122,7 @@ export function GameBoard() {
     );
   }
 
-  const pairOptions: PairCount[] = [4, 6, 8];
+  const pairOptions: PairCount[] = [4, 6, 8, 10];
 
   return (
     <div className="min-h-dvh bg-gray-950 flex flex-col items-center p-4 select-none">

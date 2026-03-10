@@ -1,4 +1,4 @@
-export type AnimalType = 'cat' | 'dog' | 'cow' | 'horse' | 'bird' | 'frog' | 'fish' | 'lion';
+export type AnimalType = 'cat' | 'dog' | 'cow' | 'horse' | 'bird' | 'frog' | 'fish' | 'lion' | 'pig' | 'owl';
 
 export type CardState = 'facedown' | 'faceup' | 'matched';
 
@@ -8,7 +8,7 @@ export interface Card {
   state: CardState;
 }
 
-export type PairCount = 4 | 6 | 8;
+export type PairCount = 4 | 6 | 8 | 10;
 
 export interface GameState {
   cards: Card[];
