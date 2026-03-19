@@ -527,9 +527,9 @@ export function initDinoGame(canvas: HTMLCanvasElement): () => void {
     ctx.font = "bold 36px 'Comic Sans MS', sans-serif";
     const isTouchDevice = 'ontouchstart' in window;
     if (isTouchDevice) {
-      ctx.fillText('Peka for att borja!', W / 2, H / 2 + 30);
+      ctx.fillText('Peka för att börja!', W / 2, H / 2 + 30);
     } else {
-      ctx.fillText('Tryck SPACE for att borja!', W / 2, H / 2 + 30);
+      ctx.fillText('Tryck SPACE för att börja!', W / 2, H / 2 + 30);
     }
     ctx.textAlign = 'start';
   }
@@ -545,15 +545,15 @@ export function initDinoGame(canvas: HTMLCanvasElement): () => void {
 
     ctx.fillStyle = '#2E7D32';
     ctx.font = "bold 44px 'Comic Sans MS', sans-serif";
-    ctx.fillText('Poang: ' + score, W / 2, H / 2 + 10);
+    ctx.fillText('Poäng: ' + score, W / 2, H / 2 + 10);
 
     ctx.fillStyle = '#444';
     ctx.font = "bold 32px 'Comic Sans MS', sans-serif";
     const isTouchDevice = 'ontouchstart' in window;
     if (isTouchDevice) {
-      ctx.fillText('Peka for att spela igen!', W / 2, H / 2 + 80);
+      ctx.fillText('Peka för att spela igen!', W / 2, H / 2 + 80);
     } else {
-      ctx.fillText('Tryck SPACE for att spela igen!', W / 2, H / 2 + 80);
+      ctx.fillText('Tryck SPACE för att spela igen!', W / 2, H / 2 + 80);
     }
     ctx.textAlign = 'start';
   }
