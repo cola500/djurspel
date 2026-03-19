@@ -64,6 +64,21 @@ const GAMES = [
       </svg>
     ),
   },
+  {
+    href: '/djurljud',
+    label: 'Vem låter så?',
+    color: 'from-cyan-400 to-blue-500',
+    icon: (
+      <svg viewBox="0 0 100 100" className="w-full h-full">
+        {/* Speaker with music notes */}
+        <rect x="15" y="35" width="20" height="30" rx="3" fill="white" />
+        <polygon points="35,30 60,15 60,85 35,70" fill="white" opacity="0.9" />
+        <text x="72" y="35" fontSize="20" fill="white" opacity="0.8">&#9835;</text>
+        <text x="80" y="60" fontSize="16" fill="white" opacity="0.6">&#9833;</text>
+        <text x="70" y="78" fontSize="18" fill="white" opacity="0.7">&#9835;</text>
+      </svg>
+    ),
+  },
 ];
 
 export default function HomePage() {

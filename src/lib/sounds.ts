@@ -13,59 +13,106 @@ export function initAudio(): void {
   getAudioContext();
 }
 
-type SoundConfig = {
-  frequencies: number[];
-  duration: number;
-  type: OscillatorType;
-  ramp?: boolean;
+// Djur som har riktiga inspelade ljud (MP3-filer i /sounds/)
+const ANIMAL_AUDIO_FILES: Record<string, string> = {
+  cat: '/sounds/cat.mp3',
+  dog: '/sounds/dog.mp3',
+  cow: '/sounds/cow.mp3',
+  horse: '/sounds/horse.mp3',
+  bird: '/sounds/bird.mp3',
+  frog: '/sounds/frog.mp3',
+  lion: '/sounds/lion.mp3',
+  pig: '/sounds/pig.mp3',
+  owl: '/sounds/owl.mp3',
 };
 
-const ANIMAL_SOUNDS: Record<string, SoundConfig> = {
-  cat:          { frequencies: [800, 600, 400], duration: 0.4, type: 'sine', ramp: true },
-  dog:          { frequencies: [300, 350, 300], duration: 0.3, type: 'square' },
-  cow:          { frequencies: [150, 120, 150], duration: 0.6, type: 'sawtooth', ramp: true },
-  horse:        { frequencies: [500, 600, 500, 400], duration: 0.5, type: 'square' },
-  bird:         { frequencies: [1200, 1400, 1200, 1600], duration: 0.3, type: 'sine' },
-  frog:         { frequencies: [200, 250, 200], duration: 0.2, type: 'square' },
-  fish:         { frequencies: [600, 800, 1000], duration: 0.2, type: 'sine' },
-  lion:         { frequencies: [150, 130, 110, 100], duration: 0.6, type: 'sawtooth' },
-  pig:          { frequencies: [300, 350, 400, 300], duration: 0.4, type: 'square', ramp: true },
-  owl:          { frequencies: [500, 400, 500, 600, 400], duration: 0.6, type: 'sine', ramp: true },
-  trex:         { frequencies: [100, 80, 60, 50], duration: 0.8, type: 'sawtooth', ramp: true },
-  triceratops:  { frequencies: [120, 100, 80, 100], duration: 0.6, type: 'square', ramp: true },
-};
+// Håll en referens till senast spelade ljud så vi kan stoppa det
+let currentAudio: HTMLAudioElement | null = null;
 
-function playSoundConfig(config: SoundConfig): void {
+// Syntetiserad fallback för djur utan inspelning (fisk, dinos)
+function playSynthFallback(animal: string): void {
   const ctx = getAudioContext();
   const now = ctx.currentTime;
-  const stepDuration = config.duration / config.frequencies.length;
 
-  const oscillator = ctx.createOscillator();
-  const gainNode = ctx.createGain();
+  const synthSounds: Record<string, () => void> = {
+    // Fisk: bubblor
+    fish: () => {
+      for (let i = 0; i < 4; i++) {
+        const t = now + i * 0.2;
+        const freq = 400 + Math.random() * 300;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, t);
+        osc.frequency.linearRampToValueAtTime(freq * 2, t + 0.1);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        gain.gain.setValueAtTime(0, t);
+        gain.gain.linearRampToValueAtTime(0.15, t + 0.02);
+        gain.gain.linearRampToValueAtTime(0, t + 0.1);
+        osc.start(t);
+        osc.stop(t + 0.1);
+      }
+    },
+    // T-Rex: djupt dån
+    trex: () => {
+      for (const [offset, freq, dur] of [[0, 70, 0.4], [0.3, 55, 0.8]] as const) {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(freq, now + offset);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        gain.gain.setValueAtTime(0, now + offset);
+        gain.gain.linearRampToValueAtTime(0.25, now + offset + 0.05);
+        gain.gain.linearRampToValueAtTime(0, now + offset + dur);
+        osc.start(now + offset);
+        osc.stop(now + offset + dur);
+      }
+    },
+    // Triceratops: snörvlande
+    triceratops: () => {
+      for (const [offset, freq, dur] of [[0, 100, 0.3], [0.3, 85, 0.5]] as const) {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(freq, now + offset);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        gain.gain.setValueAtTime(0, now + offset);
+        gain.gain.linearRampToValueAtTime(0.2, now + offset + 0.05);
+        gain.gain.linearRampToValueAtTime(0, now + offset + dur);
+        osc.start(now + offset);
+        osc.stop(now + offset + dur);
+      }
+    },
+  };
 
-  oscillator.type = config.type;
-  oscillator.connect(gainNode);
-  gainNode.connect(ctx.destination);
+  const fn = synthSounds[animal];
+  if (fn) fn();
+}
 
-  config.frequencies.forEach((freq, i) => {
-    const time = now + i * stepDuration;
-    if (config.ramp) {
-      oscillator.frequency.linearRampToValueAtTime(freq, time);
-    } else {
-      oscillator.frequency.setValueAtTime(freq, time);
-    }
-  });
-
-  gainNode.gain.setValueAtTime(0.3, now);
-  gainNode.gain.linearRampToValueAtTime(0, now + config.duration);
-
-  oscillator.start(now);
-  oscillator.stop(now + config.duration);
+export function stopAnimalSound(): void {
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+    currentAudio = null;
+  }
 }
 
 export function playAnimalSound(animal: AnimalType | string): void {
-  const config = ANIMAL_SOUNDS[animal];
-  if (config) playSoundConfig(config);
+  stopAnimalSound();
+
+  const audioFile = ANIMAL_AUDIO_FILES[animal];
+  if (audioFile) {
+    const audio = new Audio(audioFile);
+    currentAudio = audio;
+    audio.play().catch(() => {
+      // Om MP3-uppspelning misslyckas, ignorera tyst
+    });
+  } else {
+    playSynthFallback(animal);
+  }
 }
 
 export function playMatchSound(): void {
