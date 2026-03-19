@@ -44,6 +44,26 @@ const GAMES = [
       </svg>
     ),
   },
+  {
+    href: '/dino-hopp',
+    label: 'Dino Hopp!',
+    color: 'from-lime-400 to-green-500',
+    icon: (
+      <svg viewBox="0 0 100 100" className="w-full h-full">
+        {/* Simple dino silhouette */}
+        <ellipse cx="50" cy="55" rx="22" ry="28" fill="#22C55E" />
+        <circle cx="62" cy="32" r="14" fill="#22C55E" />
+        <circle cx="67" cy="29" r="4" fill="white" />
+        <circle cx="68" cy="28" r="2" fill="#1a1a1a" />
+        <rect x="36" y="72" width="8" height="14" rx="3" fill="#16A34A" />
+        <rect x="54" y="72" width="8" height="14" rx="3" fill="#16A34A" />
+        <path d="M30 50 L18 38 L28 42" fill="#22C55E" />
+        <circle cx="42" cy="26" r="4" fill="#4ADE80" />
+        <circle cx="50" cy="24" r="4" fill="#4ADE80" />
+        <circle cx="58" cy="26" r="4" fill="#4ADE80" />
+      </svg>
+    ),
+  },
 ];
 
 export default function HomePage() {
