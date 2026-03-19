@@ -109,14 +109,14 @@ export function initDinoGame(canvas: HTMLCanvasElement): () => void {
   const dino = {
     x: 120,
     y: GROUND_Y,
-    width: 70,
-    height: 80,
+    width: 100,
+    height: 115,
     velocityY: 0,
     isJumping: false,
   };
 
-  const GRAVITY = 0.55;
-  const JUMP_FORCE = -14;
+  const GRAVITY = 0.6;
+  const JUMP_FORCE = -16;
 
   function resetDino() {
     dino.y = GROUND_Y;
@@ -227,24 +227,24 @@ export function initDinoGame(canvas: HTMLCanvasElement): () => void {
 
   function spawnObstacle() {
     const type = OBSTACLE_TYPES[Math.floor(Math.random() * OBSTACLE_TYPES.length)];
-    let width = 45, height = 35;
+    let width = 65, height = 50;
 
     switch (type) {
       case 'bush':
-        width = 45;
-        height = 35 + Math.random() * 15;
+        width = 65;
+        height = 50 + Math.random() * 20;
         break;
       case 'rock':
-        width = 45 + Math.random() * 10;
-        height = 30 + Math.random() * 10;
+        width = 65 + Math.random() * 15;
+        height = 45 + Math.random() * 15;
         break;
       case 'stump':
-        width = 40;
-        height = 35 + Math.random() * 15;
+        width = 58;
+        height = 50 + Math.random() * 20;
         break;
       case 'mushroom':
-        width = 45;
-        height = 38 + Math.random() * 10;
+        width = 65;
+        height = 55 + Math.random() * 15;
         break;
     }
 
@@ -372,16 +372,16 @@ export function initDinoGame(canvas: HTMLCanvasElement): () => void {
   // Collision detection (AABB)
   // ============================================================
   function checkCollision() {
-    const dx = dino.x + 15;
-    const dy = dino.y - dino.height + 15;
-    const dw = dino.width - 30;
-    const dh = dino.height - 20;
+    const dx = dino.x + 20;
+    const dy = dino.y - dino.height + 20;
+    const dw = dino.width - 40;
+    const dh = dino.height - 28;
 
     for (const obs of obstacles) {
-      const bx = obs.x + 14;
-      const by = obs.y - obs.height + 16;
-      const bw = obs.width - 28;
-      const bh = obs.height - 16;
+      const bx = obs.x + 18;
+      const by = obs.y - obs.height + 20;
+      const bw = obs.width - 36;
+      const bh = obs.height - 20;
       if (dx < bx + bw && dx + dw > bx && dy < by + bh && dy + dh > by) {
         return true;
       }
