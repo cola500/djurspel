@@ -15,7 +15,7 @@ export function DinoGame() {
   }, []);
 
   return (
-    <div className="flex-1 flex items-center justify-center w-full overflow-hidden">
+    <div className="flex-1 flex items-center justify-center w-full min-h-0 overflow-hidden">
       <canvas
         ref={canvasRef}
         style={{ touchAction: 'none' }}
